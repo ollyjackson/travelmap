@@ -1,3 +1,17 @@
+<?php
+// web/index.php
+require_once __DIR__.'/vendor/autoload.php';
+
+$app = new Silex\Application();
+$app['debug'] = true;
+
+$app->get('/point/{id}', function($id) {
+	return "<h1>This is some info about point $id</h1>";
+});
+
+$app->get('/', function() {
+	ob_start();
+?>
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -106,3 +120,8 @@
 
 </body>
 </html>
+<?php
+return ob_get_clean();
+});
+
+$app->run();
